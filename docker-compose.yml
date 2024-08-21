@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  generative_service:
+    build:
+      context: ./generative_service
+      dockerfile: Dockerfile
+    image: generative_service_image
+    container_name: generative_service
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    ports:
+      - "8000:8000"
+    #runtime: nvidia
+    networks:
+      - genjustica_network
+
+  prompt_service:
+    build:
+      context: ./prompt_service
+      dockerfile: Dockerfile
+    image: prompt_service_image
+    container_name: prompt_service
+    ports:
+      - "8001:8001"
+    networks:
+      - genjustica_network
+    depends_on:
+      - generative_service
+
+  front_interface:
+    build:
+      context: ./front_interface
+      dockerfile: Dockerfile
+    image: front_interface_image
+    container_name: front_interface
+    ports:
+      - "8501:8501"
+    networks:
+      - genjustica_network
+    depends_on:
+      - prompt_service
+
+networks:
+  genjustica_network:
+    driver: bridge
