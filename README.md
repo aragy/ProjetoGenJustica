@@ -1,6 +1,6 @@
 # ProjetoGenJustica
 
-**ProjetoGenJustica** is an AI-powered solution designed to generate simplified reports from the text of judicial decisions. The project includes services for prompt generation, prompt engineering, and a user interface for interacting with these components.
+**ProjetoGenJustica** is a Proof of Concept (POC) AI-powered solution designed to generate simplified reports from the text of judicial decisions. The project includes services for prompt generation, prompt engineering, and a user interface for interacting with these components.
 
 ## Project Structure
 
